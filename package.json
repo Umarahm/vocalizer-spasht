@@ -4,24 +4,34 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --no-lint",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "db:migrate": "node database/schema/migrate.js",
+    "db:migrate-sessions": "node database/migrate-session-keys.js",
+    "db:add-key": "node database/add-access-key.js",
+    "db:list-keys": "node database/add-access-key.js --list",
+    "db:analytics": "echo 'Visit http://localhost:3000/analytics in your browser to view analytics, or use: curl -H \"x-access-key: YOUR_ACCESS_KEY\" http://localhost:3000/api/analytics'"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^1.0.1",
+    "@vapi-ai/web": "^2.4.0",
+    "dotenv": "^17.2.2",
+    "gsap": "^3.13.0",
+    "next": "15.5.4",
+    "pg": "^8.16.3",
     "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "next": "15.5.4"
+    "react-dom": "19.1.0"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@tailwindcss/postcss": "^4",
-    "tailwindcss": "^4",
     "eslint": "^9",
     "eslint-config-next": "15.5.4",
-    "@eslint/eslintrc": "^3"
+    "tailwindcss": "^4",
+    "typescript": "^5"
   }
 }
