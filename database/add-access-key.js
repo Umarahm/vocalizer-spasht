@@ -217,3 +217,4 @@ if (args.includes('--list') || args.includes('-l')) {
     // Interactive mode to add access keys
     addAccessKey();
 }
+

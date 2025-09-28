@@ -21,7 +21,7 @@ export default function Home() {
   }
 
   if (!isAuthenticated) {
-    return <AuthScreen onAuthenticated={() => { }} />;
+    return <AuthScreen onAuthenticated={() => { /* Auth state will be updated by AuthProvider */ }} />;
   }
 
   return (

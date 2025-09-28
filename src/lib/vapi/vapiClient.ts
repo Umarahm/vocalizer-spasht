@@ -19,7 +19,7 @@ export interface VapiAssistant {
 
 export interface VapiConfig {
     apiKey: string;
-    assistant?: VapiAssistant;
+    assistant: VapiAssistant;
     interviewType?: string;
     jobRole?: string;
 }

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { ClientAuth } from '@/lib/auth/auth';
+import { useAuth } from '@/components/AuthProvider';
 
 interface AuthScreenProps {
     onAuthenticated: () => void;
@@ -12,6 +12,7 @@ export default function AuthScreen({ onAuthenticated }: AuthScreenProps) {
     const [accessKey, setAccessKey] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const { login } = useAuth();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -25,23 +26,12 @@ export default function AuthScreen({ onAuthenticated }: AuthScreenProps) {
         setError(null);
 
         try {
-            // Validate access key with the server
-            const response = await fetch('/api/auth/validate', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ accessKey: accessKey.trim() }),
-            });
+            const success = await login(accessKey.trim());
 
-            const data = await response.json();
-
-            if (response.ok && data.success) {
-                // Store access key and proceed
-                ClientAuth.setAccessKey(accessKey.trim());
+            if (success) {
                 onAuthenticated();
             } else {
-                setError(data.error || 'Invalid access key');
+                setError('Invalid access key');
             }
         } catch (error) {
             console.error('Auth error:', error);

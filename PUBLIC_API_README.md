@@ -216,3 +216,4 @@ All endpoints return appropriate HTTP status codes:
 - `500`: Server error
 
 Error responses include a JSON object with an `error` field describing the issue.
+

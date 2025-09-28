@@ -826,16 +826,16 @@ export default function ChallengePage({ level, onBack, onComplete }: ChallengePa
                                 <>
                                     {console.log('Rendering DebateTopicModal - showDebateSetup:', showDebateSetup)}
                                     <DebateTopicModal
-                                    showDebateSetup={showDebateSetup}
-                                    debateTopic={debateTopic}
-                                    debatePosition={debatePosition}
-                                    error={error}
-                                    troubleshootingSteps={troubleshootingSteps}
-                                    onDebateTopicChange={setDebateTopic}
-                                    onDebatePositionChange={(position) => setDebatePosition(position)}
-                                    onStopDebate={stopDebate}
-                                    showChatInterface={showChatInterface}
-                                />
+                                        showDebateSetup={showDebateSetup}
+                                        debateTopic={debateTopic}
+                                        debatePosition={debatePosition}
+                                        error={error}
+                                        troubleshootingSteps={troubleshootingSteps}
+                                        onDebateTopicChange={setDebateTopic}
+                                        onDebatePositionChange={(position) => setDebatePosition(position)}
+                                        onStopDebate={stopDebate}
+                                        showChatInterface={showChatInterface}
+                                    />
                                 </>
                             )}
 
