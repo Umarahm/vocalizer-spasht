@@ -1,19 +1,36 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ServerAuthService } from '@/lib/auth/server-auth';
 import { DatabaseService } from '@/lib/db/service';
+import { User } from '@/lib/db/client';
 
 export async function GET(request: NextRequest) {
     try {
-        // Authenticate user
-        const authResult = await ServerAuthService.requireAuth(request);
-        if ('error' in authResult) {
-            return authResult.error;
+        // First check if access_key is provided as a query parameter (for external scraping)
+        const { searchParams } = new URL(request.url);
+        const accessKeyParam = searchParams.get('access_key');
+
+        let user: User;
+
+        if (accessKeyParam) {
+            // Authenticate using access key from query parameter
+            const authResult = await ServerAuthService.validateAccessKey(accessKeyParam);
+            if (!authResult.success) {
+                return NextResponse.json(
+                    { error: 'Invalid access key' },
+                    { status: 401 }
+                );
+            }
+            user = authResult.user!;
+        } else {
+            // Use traditional authentication (cookie or header)
+            const authResult = await ServerAuthService.requireAuth(request);
+            if ('error' in authResult) {
+                return authResult.error;
+            }
+            user = authResult.user!;
         }
 
-        const { user } = authResult;
-
         // Parse query parameters for pagination
-        const { searchParams } = new URL(request.url);
         const recentActivityLimit = parseInt(searchParams.get('recentActivityLimit') || '10');
         const sessionLimit = parseInt(searchParams.get('sessionLimit') || '5');
         const includeTrends = searchParams.get('includeTrends') !== 'false'; // Default true

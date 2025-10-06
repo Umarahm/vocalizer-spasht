@@ -13,3 +13,5 @@ export default function AnalyticsRoute() {
     return <AnalyticsPage onBack={handleBack} />;
 }
 
+
+
