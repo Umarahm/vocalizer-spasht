@@ -80,7 +80,7 @@ npm run db:add-key
 # List existing access keys
 npm run db:list-keys
 ```
-
+TEST-ACCESS-KEY => test-key
 The script will prompt you to enter access keys for authorized users. Each access key represents one user account in the system.
 
 ### 6. Start the Development Server
